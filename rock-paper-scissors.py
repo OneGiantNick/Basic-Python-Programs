@@ -1,50 +1,40 @@
-import random
-while True:
- choices = ["rock","paper","scissors"]
- computer = random.choice(choices)
- player = input("rock, paper, scissors?:") .lower()
+# Quick rock paper scissors game
+from random import randint
 
- while player not in choices:
-    player = input("rock, paper, scissors?:") .lower()
-    print("invalid choice try again!")
- if player == computer:
-        print("computer: ",computer)
-        print("player: ",player)
-        print("Tie!")
+def menu():
+    start = str(input("start game? y/n ")).lower()
+    if start == "y":
+        game()
+        print("Thanks for playing!")
+    else:
+        pass
 
- elif player == "rock":
-        if computer == "paper":
-            print("computer: ", computer)
-            print("player: ", player)
-            print("You lose!")
-        if computer == "scissors":
-            print("computer: ", computer)
-            print("player: ", player)
-            print("You win!")
 
- elif player == "scissors":
-        if computer == "rock":
-            print("computer: ", computer)
-            print("player: ", player)
-            print("You lose!")
-        if computer == "paper":
-            print("computer: ", computer)
-            print("player: ", player)
-            print("You won!")
+def game():
+    choices = ["rock", "paper", "scissors"]
+    inputs = {"rock": "scissors", 
+              "paper": "rock", 
+              "scissors": "paper"
+             }
 
- elif player == "paper":
-        if computer == "scissors":
-            print("computer: ", computer)
-            print("player: ", player)
-            print("You lose!")
-        if computer == "rock":
-            print("computer: ", computer)
-            print("player: ", player)
-            print("You won!")
+    while True:
+        computer_choice = choices[randint(0, 2)]
+        user_choice = str(
+            input("select rock, paper or scissors (type quit to stop game): ")
+        ).lower()
+        if user_choice == "quit":
+            return
+        elif user_choice in inputs:
+            print("I chose {}!".format(computer_choice))
+            if computer_choice == inputs[user_choice]:
+                print("Nice one! You win! ")
+            elif computer_choice == user_choice:
+                print("Draw! Try again!")
+            else:
+                print("Unlucky... You lose!")
+        else:
+            print("Incorrect choice try again")
 
- play_again = input("Play again? (yes/no): ").lower()
 
- if play_again != "yes":
-        break
-
-print("Bye!")
+if __name__ == "__main__":
+    menu()
